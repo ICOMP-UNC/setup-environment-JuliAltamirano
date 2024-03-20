@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * @brief Print a message using static library and return its size
  * 
