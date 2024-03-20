@@ -9,12 +9,15 @@ runs:
       run: |
         PROJECT_PATH=$(pwd)
 
-        # ToDo: Add documentation and describe better this command
+        # The 'ctest' executable is the CMake test driver program. This program will run the tests and report results.
+        # For example, in this case, the command run the tests inside 'build/tests' folder and if a test fails, it shows the output of the failing test.
+        # See: https://linuxcommandlibrary.com/man/ctest
         ctest --test-dir build/tests --output-on-failure
 
-        # ToDo: Add documentation and describe better this command
-
-
+        # The command 'gcovr' run and summarize the coverage in simple reports.
+        # It's used to know how much lines of a file are tested and which are missing.
+        # In this case, the command is runing the coverage of all files in '$PROJECT_PATH' and writing the report in 'coverage.txt'.
+        # See: https://gcovr.com/en/stable/manpage.html#gcovr
         gcovr -r $PROJECT_PATH . > $PROJECT_PATH/coverage.txt
 
         echo "Runnig: gcovr -r $PROJECT_PATH ."
@@ -22,7 +25,10 @@ runs:
         cat $PROJECT_PATH/coverage.txt
 
         # Find the value of correct coverage
-        # ToDo: Add documentation and describe better this command
+        # Here, we are filtering the 'coverage.txt' file with the word 'TOTAL'. Then, we print the last column of that row and remove the symbol '%'.
+        # See: https://man7.org/linux/man-pages/man1/grep.1.html
+        # See: https://man7.org/linux/man-pages/man1/awk.1p.html
+        # See: https://man7.org/linux/man-pages/man1/cut.1.html
         COVERAGE_RESULT=$(grep "TOTAL" $PROJECT_PATH/coverage.txt | awk '{print $NF}' | cut -d '%' -f 1)
 
         # Coverage lines GT 20

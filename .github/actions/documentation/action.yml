@@ -10,7 +10,7 @@ runs:
           # We only make check, not changes
           DOX_CONF_FILE=$(pwd)/Doxyfile
 
-          # ToDo: Add documentation about this command and describe better
+          # Here, we are adding a new line to '$DOX_CONF_FILE' with the path of the folders: src, include and lib.
           {
               cat $DOX_CONF_FILE
               echo "INPUT" = $(pwd)/src $(pwd)/include $(pwd)/lib
@@ -22,7 +22,9 @@ runs:
 
           ERROR_FILE_FLAG=$(pwd)/dox_errors.txt
 
-          # ToDo: Add documentation and describe better this command
+          # Doxygen is a documentation system for C++, C, Java, Objective‐C, IDL (Corba and Microsoft flavors), Fortran, Python, VHDL and to some extent PHP, C#, and D.
+          # For example, in this case, we generate the documentation using an existing configuration file ($DOX_CONF_FILE).
+          # See: https://www.doxygen.nl/manual/starting.html
           DOXYGEN_COMMAND=$(doxygen -s $DOX_CONF_FILE) > $ERROR_FILE_FLAG
 
           if [ -s $ERROR_FILE_FLAG ]; then

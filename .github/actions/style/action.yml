@@ -13,14 +13,21 @@ runs:
 
         echo $PROJECT_PATH
 
-        # ToDo: Add documentation about 'tr' command and describe better this command
+        # The command 'tr' translates, squeezes, and/or deletes characters from standard input, writing to standard output.
+        # For example, in this case, we are replacing the character '\n' with a white-space (' ').
+        # See: https://man7.org/linux/man-pages/man1/tr.1.html
         SOURCE_FILES=$(find $PROJECT_PATH/src -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
         SOURCE_FILES+=$(find $PROJECT_PATH/include -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
         SOURCE_FILES+=$(find $PROJECT_PATH/lib -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
 
         ERROR_FILE_FLAG=$PROJECT_PATH/clang-format_errors.txt
 
-        # ToDo: Add documentation and describe better this command
+        # The command 'clang-format' is a tool to format C/C++/Java/JavaScript/Objective-C/Protobuf/C# code.
+        # If no arguments are specified, it formats the code from standard input and writes the result to the standard output.
+        # If <file>s are given, it reformats the files. If -i is specified together with <file>s, the files are edited in-place.
+        # Otherwise, the result is written to the standard output.
+        # For example, in this case, we are formating and editing the files inside '$SOURCE_FILES' in-place.
+        # See: https://linuxcommandlibrary.com/man/clang-format
         CLANG_COMMAND=$(clang-format -i $SOURCE_FILES) > ${ERROR_FILE_FLAG}
 
         echo "Running: clang-format -i $SOURCE_FILES"
